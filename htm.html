@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie List</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: white;
+      background-image: url("anime.jpg");
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: whitesmoke;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 10px 4px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    .movie-list {
+      margin-top: 20px;
+      padding-left: 0;
+      list-style-type:georgian;
+    }
+    .movie-list li {
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-delete {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn-warning {
+        background-color: yellow;
+        color: black;
+        border:none;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .btn-delete:hover {
+      background-color: #c82333;
+    }
+    /* footer{
+        bottom: 0;
+        position: absolute;
+        background-color: slategray;
+        width: 100%;
+        align-items: center;
+    } */
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="text-center mb-4" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
+    >Movie List</h2>
+  
+    <div class="form-group">
+      <input type="text" class="form-control" id="movieInput" placeholder="Enter movie name">
+    </div>
+    <button class="btn btn-success btn-block" onclick="addMovie()">Add Movie</button>
+    
+    <ul id="movieList" class="movie-list">
+    </ul>
+  </div>
+  <!-- <footer>
+    <p>Grey Uchiha</p>
+    <p>Terms and conditions apply</p>
+
+  </footer> -->
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script>
+    function addMovie() {
+      const movieInput = document.getElementById('movieInput');
+      const movieName = movieInput.value.trim();
+      
+      if (movieName) {
+        
+        const listItem = document.createElement('li');
+        listItem.textContent = movieName;
+
+        const deleteButton = document.createElement('button');
+        const editButton = document.createElement('button');
+        deleteButton.classList.add('btn-delete');
+        editButton.classList.add('btn-warning');
+        deleteButton.textContent = 'Delete';
+        editButton.textContent = 'Edit';
+        
+        deleteButton.onclick = function() {
+          listItem.remove();
+        };
+
+        editButton.onclick = function() {
+          const newMovieName = prompt("Edit the movie name:", movieName);
+          if (newMovieName && newMovieName.trim() !== "") {
+            listItem.firstChild.textContent = newMovieName.trim();
+          }
+        };
+
+        listItem.appendChild(deleteButton);
+        listItem.appendChild(editButton);
+        document.getElementById('movieList').appendChild(listItem);
+        
+        movieInput.value = '';
+      } else {
+        alert('Please enter a movie name!');
+      }
+    }
+  </script>
+
+</body>
+</html>
